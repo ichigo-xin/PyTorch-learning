@@ -1,0 +1,8 @@
+### IntelliJ IDEA ###
+.idea/
+
+venv
+
+*.path
+*.pth
+./data/
