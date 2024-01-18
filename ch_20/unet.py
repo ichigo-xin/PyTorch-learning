@@ -14,6 +14,9 @@ class Block(nn.Module):
                             kernel_size=3,
                             padding='same',
                         )
+
+        self.bn1 = nn.BatchNorm2d(num_features=features)
+
         self.conv2 = nn.Conv2d(
                             in_channels=features,
                             out_channels=features,
@@ -21,12 +24,16 @@ class Block(nn.Module):
                             padding='same',
                         )
 
+        self.bn2 = nn.BatchNorm2d(num_features=features)
+
     def forward(self, input):
         x = self.conv1(input)
-        x = nn.BatchNorm2d(num_features=self.features)(x)
+        # x = nn.BatchNorm2d(num_features=self.features)(x.to(x.device))
+        x = self.bn1(x.to(x.device))
         x = nn.ReLU(inplace=True)(x)
         x = self.conv2(x)
-        x = nn.BatchNorm2d(num_features=self.features)(x)
+        x = self.bn2(x.to(x.device))
+        # x = nn.BatchNorm2d(num_features=self.features)(x)
         x = nn.ReLU(inplace=True)(x)
 
         return x

@@ -1,18 +1,15 @@
+import time
+from tqdm import tqdm, trange
 
-import matplotlib.pyplot as plt
-import torch
-import torchvision
-import torchvision.models as models
+#trange(i)是tqdm(range(i))的一种简单写法
+for i in trange(100):
+    time.sleep(0.05)
 
-googlenet = models.googlenet(pretrained=True)
+for i in tqdm(range(100), desc='Processing'):
+    time.sleep(0.05)
 
-# 提取分类层的输入参数
-fc_in_features = googlenet.fc.in_features
-print("fc_in_features:", fc_in_features)
-
-# 查看分类层的输出参数
-fc_out_features = googlenet.fc.out_features
-print("fc_out_features:", fc_out_features)
-
-googlenet.fc = torch.nn.Linear(fc_in_features, 10)
-
+dic = ['a', 'b', 'c', 'd', 'e']
+pbar = tqdm(dic)
+for i in pbar:
+    pbar.set_description('Processing '+i)
+    time.sleep(0.2)
